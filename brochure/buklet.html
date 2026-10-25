@@ -4,54 +4,57 @@
 <meta charset="utf-8">
 <title>Сказка 3.0 — буклет</title>
 <!--
-  Буклет-евро (трифолд), A4 альбомная, 297 × 210 мм.
-  Стр. 1 — внешняя сторона: [клапан | оборот | обложка]
-  Стр. 2 — внутренняя сторона: [01 | 02 | 03]
-  Печать: двусторонняя, переворот по короткому краю, поля «Нет», масштаб 100 %.
+  Буклет-евро (трифолд), A4 альбомная, 297 × 210 мм. Стиль — как в презентации проекта.
+  Стр. 1 — внешняя сторона: [клапан | оборот | обложка с QR]
+  Стр. 2 — внутренняя сторона: [1 | 2 | 3]
+  Печать: двусторонняя, переворот по короткому краю, поля «Нет», масштаб 100 %, фон — включить.
   Клапан, который заворачивается внутрь, на 3 мм уже (97 мм).
 -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Marck+Script&display=swap" rel="stylesheet">
 <style>
   @page { size: 297mm 210mm; margin: 0; }
 
   :root {
-    --blue: #0075de;
-    --sky: #62aef0;
-    --navy: #213183;
-    --ink: #111;
-    --ink-2: #3a3936;
-    --muted: #7b7772;
-    --line: #e4e2df;
-    --soft: #f4f3f1;
-    --green: #1aae39;
-    --violet: #8b5cd6;
+    --ink: #2b2d42;
+    --ink-2: #44465c;
+    --muted: #6b6d80;
+    --cream: #fef6e4;
+    --sky-bg: #e6f2fc;
+    --script: #d9472b;
+
+    --yellow: #ffd43b;
+    --blue: #8fd0f5;
+    --green: #b5e48c;
+    --violet: #cdb4f6;
+    --salmon: #ffa07a;
+    --pink: #ffc6d9;
+    --bar: #4cc9f0;
+    --red: #ff6b4a;
+    --paper: #fffdf8;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  html, body { background: #d9d8d6; }
+  html, body { background: #cfcdc8; }
   body {
-    font-family: Inter, -apple-system, "Helvetica Neue", Arial, sans-serif;
+    font-family: Nunito, "Arial Rounded MT Bold", Arial, sans-serif;
     color: var(--ink);
-    font-size: 7.6pt;
-    line-height: 1.42;
+    font-size: 8.2pt;
+    line-height: 1.4;
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
-    font-feature-settings: "lnum", "tnum";
   }
 
   .sheet {
     width: 297mm; height: 210mm;
     margin: 10mm auto;
-    background: #fff;
     display: grid;
     position: relative;
     overflow: hidden;
-    box-shadow: 0 8px 30px rgba(0,0,0,.12);
-    page-break-after: always;
+    box-shadow: 0 8px 30px rgba(0,0,0,.15);
     break-after: page;
   }
-  .sheet:last-child { page-break-after: auto; break-after: auto; }
+  .sheet:last-child { break-after: auto; }
   .outside { grid-template-columns: 97mm 100mm 100mm; }
   .inside  { grid-template-columns: 100mm 100mm 97mm; }
 
@@ -60,150 +63,129 @@
     .sheet { margin: 0; box-shadow: none; }
     .fold { display: none; }
   }
+  .fold { position: absolute; top: 0; bottom: 0; border-left: 1px dashed rgba(43,45,66,.18); z-index: 5; }
 
-  /* линии сгиба (только на экране) */
-  .fold { position: absolute; top: 0; bottom: 0; width: 0; border-left: 1px dashed rgba(0,0,0,.12); z-index: 5; }
-
-  .panel {
-    position: relative;
-    padding: 12mm 10mm 10mm;
-    display: flex; flex-direction: column;
-    min-height: 0;
-  }
-
-  /* ---------- типографика ---------- */
-  .kicker {
-    font-size: 6.2pt; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
-    color: var(--blue);
-  }
-  .kicker.dark { color: var(--ink); }
-  .h1 { font-size: 23pt; line-height: 1.02; font-weight: 800; letter-spacing: -.025em; }
-  .h2 { font-size: 15pt; line-height: 1.05; font-weight: 800; letter-spacing: -.02em; }
-  .h3 { font-size: 8.4pt; font-weight: 700; letter-spacing: -.005em; }
-  .muted { color: var(--muted); }
-  .lead { font-size: 8.6pt; line-height: 1.4; color: var(--ink-2); }
-  p + p { margin-top: 2.2mm; }
-
-  .head { display: flex; align-items: flex-start; justify-content: space-between; gap: 4mm; margin-bottom: 6mm; }
-  .bignum {
-    font-size: 54pt; line-height: .78; font-weight: 900; letter-spacing: -.05em;
-    color: var(--sky);
-  }
-  .rule { height: 1px; background: var(--line); margin: 4.5mm 0; }
+  .panel { position: relative; padding: 11mm 9mm 9mm; display: flex; flex-direction: column; min-height: 0; background: var(--cream); }
+  .panel.sky { background: var(--sky-bg); }
   .push { margin-top: auto; }
 
-  .label {
-    font-size: 5.8pt; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--muted);
-    margin-bottom: 1.6mm;
+  /* ---------- типографика как в слайдах ---------- */
+  .script { font-family: "Marck Script", cursive; color: var(--script); font-size: 12pt; line-height: 1.1; }
+  .h1 { font-size: 21pt; line-height: 1.04; font-weight: 900; letter-spacing: -.01em; }
+  .h2 { font-size: 14.5pt; line-height: 1.08; font-weight: 900; letter-spacing: -.01em; margin-top: 1mm; }
+  .h4 { font-size: 8.4pt; font-weight: 900; }
+  .muted { color: var(--muted); }
+  .head { margin-bottom: 4.5mm; }
+  .sp { height: 4mm; }
+
+  .num {
+    position: absolute; right: 9mm; top: 10mm;
+    width: 8mm; height: 8mm; border-radius: 50%;
+    background: var(--yellow); border: .45mm solid var(--ink);
+    display: grid; place-items: center; font-weight: 900; font-size: 9pt;
   }
 
-  /* ---------- блоки ---------- */
-  .block + .block { margin-top: 4.5mm; }
-  .bar-accent { border-left: 2px solid var(--blue); padding-left: 3.2mm; }
-
-  ol.tasks { list-style: none; counter-reset: t; }
-  ol.tasks li {
-    counter-increment: t; position: relative; padding-left: 6mm;
-    padding-block: 1.25mm; border-bottom: 1px solid var(--line);
+  /* карточки с обводкой и жёсткой тенью */
+  .card {
+    border: .45mm solid var(--ink); border-radius: 3mm;
+    box-shadow: .9mm .9mm 0 var(--ink);
+    padding: 3mm 3.4mm;
+    background: var(--paper);
   }
-  ol.tasks li:first-child { border-top: 1px solid var(--line); }
-  ol.tasks li::before {
-    content: counter(t, decimal-leading-zero); position: absolute; left: 0; top: 1.25mm;
-    font-weight: 700; color: var(--blue); font-size: 6.6pt;
+  .card + .card { margin-top: 3.6mm; }
+  .card p { color: var(--ink-2); }
+  .card .h4 { margin-bottom: .8mm; }
+  .y { background: var(--yellow); } .b { background: var(--blue); } .g { background: var(--green); }
+  .v { background: var(--violet); } .s { background: var(--salmon); } .p { background: var(--pink); }
+  .tilt-l { transform: rotate(-1.2deg); } .tilt-r { transform: rotate(1deg); }
+
+  .pill {
+    display: inline-block; border: .4mm solid var(--ink); border-radius: 99px;
+    padding: .7mm 2.3mm; font-weight: 800; font-size: 6.6pt; line-height: 1.25;
+  }
+  .pills { display: flex; flex-wrap: wrap; gap: 1.6mm; }
+  .ribbon {
+    border: .45mm solid var(--ink); border-radius: 99px; background: var(--yellow);
+    font-weight: 800; padding: 1.6mm 3.4mm; font-size: 7.2pt; line-height: 1.25;
   }
 
-  .chain { display: flex; flex-wrap: nowrap; align-items: center; gap: .9mm; }
-  .chain span {
-    font-size: 6.1pt; font-weight: 600; padding: .8mm 1.7mm; border-radius: 99px;
-    background: var(--soft); color: var(--ink-2);
-  }
-  .chain i { font-style: normal; color: var(--sky); font-weight: 700; font-size: 6.4pt; }
+  .label { font-weight: 900; font-size: 7.6pt; margin-bottom: 1.8mm; }
 
-  .theory { display: grid; gap: 2.4mm; }
-  .theory div { display: grid; grid-template-columns: 22mm 1fr; gap: 2mm; }
-  .theory b { font-weight: 700; }
-
-  /* три формы */
-  .forms { display: grid; gap: 3mm; }
-  .form {
-    display: grid; grid-template-columns: 17mm 1fr; gap: 3mm; align-items: center;
-  }
-  .form img { width: 17mm; height: 17mm; object-fit: cover; border-radius: 2mm; display: block; }
-  .form .tag { font-size: 5.8pt; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
-  .form .ttl { font-weight: 700; font-size: 8pt; margin: .3mm 0 .5mm; }
-
-  table.cmp { width: 100%; border-collapse: collapse; font-size: 6.4pt; line-height: 1.3; }
-  table.cmp th, table.cmp td { text-align: left; vertical-align: top; padding: 1.2mm 1.2mm 1.2mm 0; border-bottom: 1px solid var(--line); }
-  table.cmp th { font-size: 5.6pt; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
-  table.cmp td:first-child { font-weight: 700; color: var(--ink); width: 15mm; }
-  table.cmp td { color: var(--ink-2); }
-
-  .kept { display: grid; grid-template-columns: 1fr 1fr; gap: 3mm; }
-  .kept ul { list-style: none; }
-  .kept li { padding: .7mm 0 .7mm 3mm; position: relative; color: var(--ink-2); font-size: 6.6pt; line-height: 1.3; }
-  .kept li::before { content: ""; position: absolute; left: 0; top: 2mm; width: 1.2mm; height: 1.2mm; border-radius: 50%; background: var(--sky); }
-  .kept .k li::before { background: var(--blue); }
-
-  /* цифры */
-  .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 3.5mm 4mm; }
-  .stat .n { font-size: 21pt; font-weight: 800; letter-spacing: -.04em; line-height: 1; color: var(--blue); }
-  .stat .t { font-size: 6.5pt; line-height: 1.3; color: var(--ink-2); margin-top: .8mm; }
-
-  .method { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2mm; }
-  .method div { border-top: 2px solid var(--ink); padding-top: 1.3mm; }
-  .method b { display: block; font-size: 12pt; font-weight: 800; letter-spacing: -.03em; line-height: 1.05; }
-  .method span { font-size: 5.8pt; color: var(--muted); line-height: 1.2; display: block; margin-top: .4mm; }
-
-  .bars { display: grid; gap: 1.8mm; }
-  .bar { display: grid; grid-template-columns: 29mm 1fr 8mm; gap: 2mm; align-items: center; font-size: 6.5pt; }
-  .bar .track { height: 2.2mm; background: var(--soft); border-radius: 99px; overflow: hidden; }
-  .bar .fill { height: 100%; background: var(--blue); border-radius: 99px; }
-  .bar b { text-align: right; font-weight: 700; }
-
-  ol.concl { list-style: none; counter-reset: c; display: grid; gap: 2.2mm; }
-  ol.concl li { counter-increment: c; display: grid; grid-template-columns: 5mm 1fr; gap: 1.5mm; color: var(--ink-2); }
-  ol.concl li::before { content: counter(c); font-weight: 800; color: var(--blue); font-size: 9pt; line-height: 1.1; }
+  .frame { border: .55mm solid var(--ink); border-radius: 3.5mm; box-shadow: 1.1mm 1.1mm 0 var(--ink); overflow: hidden; display: block; }
+  .frame img { display: block; width: 100%; height: 100%; object-fit: cover; }
 
   /* ---------- обложка ---------- */
-  .cover { padding: 0; }
-  .cover .top { padding: 12mm 10mm 0; }
-  .cover .art {
-    margin-top: auto; height: 86mm; position: relative;
-    background: url("../public/img/hero.webp") center 42% / cover no-repeat;
+  .qr-card {
+    background: #fff; border: .6mm solid var(--ink); border-radius: 4mm;
+    box-shadow: 1.4mm 1.4mm 0 var(--ink);
+    padding: 3.5mm; width: 76mm; height: 76mm; margin: 0 auto;
   }
-  .cover .art::before {
-    content: ""; position: absolute; inset: 0 0 auto 0; height: 14mm;
-    background: linear-gradient(#fff, rgba(255,255,255,0));
-  }
-  .cover .badge {
-    position: absolute; right: 10mm; top: 12mm;
-    font-size: 64pt; font-weight: 900; letter-spacing: -.06em; line-height: .8; color: var(--sky);
-  }
-  .cover .foot {
-    position: absolute; left: 0; right: 0; bottom: 0;
-    padding: 4mm 10mm; color: #fff; font-size: 6.2pt; font-weight: 600; letter-spacing: .08em; text-transform: uppercase;
-    background: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,.55));
-    display: flex; justify-content: space-between;
-  }
-  .brand { font-size: 7pt; font-weight: 800; letter-spacing: .02em; }
-  .brand em { font-style: normal; color: var(--blue); }
+  .qr-card img { width: 100%; height: 100%; display: block; image-rendering: pixelated; }
 
-  /* ---------- оборот ---------- */
-  .back { background: var(--soft); }
-  .person { display: grid; gap: .6mm; }
-  .person .name { font-size: 11pt; font-weight: 800; letter-spacing: -.02em; line-height: 1.1; }
-  .qr { width: 26mm; height: 26mm; display: block; background: #fff; padding: 1.5mm; border-radius: 2mm; image-rendering: pixelated; }
-  .sources { list-style: none; counter-reset: s; font-size: 6pt; line-height: 1.32; color: var(--ink-2); display: grid; gap: 1mm; }
-  .sources li { counter-increment: s; display: grid; grid-template-columns: 3.5mm 1fr; }
-  .sources li::before { content: counter(s) "."; color: var(--muted); }
+  /* ---------- списки ---------- */
+  ol.tasks { list-style: none; counter-reset: t; display: grid; gap: 1.5mm; }
+  ol.tasks li { counter-increment: t; display: grid; grid-template-columns: 5mm 1fr; color: var(--ink-2); }
+  ol.tasks li::before { content: counter(t) "."; font-weight: 900; color: var(--ink); }
 
-  /* ---------- клапан ---------- */
-  .q { font-size: 13.5pt; line-height: 1.12; font-weight: 800; letter-spacing: -.02em; }
-  .q em { font-style: normal; color: var(--blue); }
+  .propp { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.8mm; }
+  .propp span {
+    border: .4mm solid var(--ink); border-radius: 2mm; padding: 1.1mm 1.8mm;
+    font-weight: 800; font-size: 6.6pt;
+  }
 
-  .usage { list-style: none; display: grid; gap: 1.2mm; }
-  .usage li { padding-left: 3.5mm; position: relative; color: var(--ink-2); }
-  .usage li::before { content: "→"; position: absolute; left: 0; color: var(--blue); font-weight: 700; }
+  .theory { display: grid; gap: 1.6mm; }
+  .theory div { display: grid; grid-template-columns: 25mm 1fr; gap: 2mm; color: var(--ink-2); }
+  .theory b { color: var(--ink); font-weight: 900; }
+
+  .form { display: grid; grid-template-columns: 18mm 1fr; gap: 2.8mm; align-items: center; }
+  .form img { width: 18mm; height: 18mm; object-fit: cover; border-radius: 2mm; border: .4mm solid var(--ink); display: block; }
+  .form .tag { font-weight: 800; font-size: 6.2pt; color: var(--ink-2); }
+  .form .h4 { margin: .2mm 0 .4mm; }
+  .form p { font-size: 7pt; line-height: 1.3; }
+
+  .map { display: grid; grid-template-columns: 1fr 4mm 1fr; gap: 1.6mm 0; align-items: center; }
+  .map span { border: .4mm solid var(--ink); border-radius: 99px; padding: .7mm 2mm; font-weight: 700; font-size: 6.6pt; background: var(--paper); text-align: center; }
+  .map span.to { background: var(--yellow); font-weight: 800; }
+  .map i { font-style: normal; text-align: center; font-weight: 900; }
+
+  /* ---------- результаты ---------- */
+  .hero-stat { display: grid; grid-template-columns: auto 1fr; gap: 3mm; align-items: center; }
+  .hero-stat b { font-size: 30pt; font-weight: 900; line-height: .9; letter-spacing: -.02em; }
+  .hero-stat span { font-weight: 800; font-size: 7.2pt; line-height: 1.25; }
+
+  .bars { display: grid; gap: 1.5mm; }
+  .bar { display: grid; grid-template-columns: 24mm 1fr 7mm; gap: 1.8mm; align-items: center; font-size: 6.8pt; }
+  .bar .track { height: 3mm; }
+  .bar .fill { height: 100%; border: .35mm solid var(--ink); border-radius: 99px; background: var(--bar); }
+  .bar b { font-weight: 900; }
+  .bar.hl span:first-child, .bar.hl b { color: var(--script); font-weight: 900; }
+
+  .tbar { height: 3.4mm; border: .4mm solid var(--ink); border-radius: 99px; background: var(--paper); overflow: hidden; }
+  .tbar div { height: 100%; }
+  .tline { display: flex; justify-content: space-between; font-weight: 800; font-size: 7pt; margin: 1.6mm 0 .8mm; }
+
+  .stat4 { display: grid; grid-template-columns: 1fr 1fr; gap: 2.4mm; }
+  .stat4 .card { padding: 2mm 2.6mm; margin: 0; }
+  .stat4 b { display: block; font-size: 13pt; font-weight: 900; line-height: 1; }
+  .stat4 span { display: block; font-size: 6.3pt; color: var(--ink-2); line-height: 1.25; margin-top: .6mm; }
+
+  .people { display: grid; grid-template-columns: 1fr 1fr; gap: 2.4mm; }
+  .people .card { margin: 0; padding: 2mm 2.6mm; }
+  .people small { display: block; font-size: 6.2pt; color: var(--ink-2); }
+  .people b { display: block; font-weight: 900; font-size: 7.6pt; line-height: 1.2; }
+
+  .dark { background: var(--ink); color: #fff; border-radius: 3mm; padding: 3.2mm 3.6mm; }
+  .dark .script { color: var(--yellow); font-size: 11pt; }
+  .dark p { font-weight: 800; font-size: 8pt; line-height: 1.3; margin-top: 1mm; }
+  .trio { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.4mm; }
+  .trio .card { margin: 0; padding: 2mm 2.4mm; }
+  .trio b { display: block; font-size: 14pt; font-weight: 900; line-height: 1; }
+  .trio span { display: block; font-size: 6.4pt; font-weight: 700; line-height: 1.2; margin-top: .6mm; }
+  .duo { display: grid; grid-template-columns: 1fr 1fr; gap: 2.4mm; }
+  .duo .card { margin: 0; padding: 2.2mm 2.6mm; }
+  .duo ul { list-style: none; font-size: 6.6pt; line-height: 1.3; color: var(--ink-2); }
+  .duo li { padding-left: 2.6mm; position: relative; margin-top: .5mm; }
+  .duo li::before { content: "•"; position: absolute; left: 0; font-weight: 900; color: var(--ink); }
 </style>
 </head>
 <body>
@@ -213,108 +195,95 @@
   <i class="fold" style="left:97mm"></i>
   <i class="fold" style="left:197mm"></i>
 
-  <!-- Клапан (заворачивается внутрь — его видят первым, открыв обложку) -->
+  <!-- Клапан: тема, цель, гипотеза -->
   <div class="panel">
     <div class="head">
-      <div>
-        <div class="kicker">Исследование</div>
-        <div class="h2" style="margin-top:2mm">Цель<br>и гипотеза</div>
-      </div>
-      <div class="bignum">?</div>
+      <div class="script">Тема, цель и гипотеза</div>
+      <div class="h2">Почему жанр, появившийся много веков назад, не исчезает?</div>
+      <p class="muted" style="margin-top:1.6mm">Сказочные мотивы перешли в мультфильмы, кино, игры, соцсети и тексты ИИ.</p>
     </div>
 
-    <p class="q">Сказка жива не из-за старинной формы, а благодаря <em>понятным&nbsp;темам</em>.</p>
-
-    <div class="rule"></div>
-
-    <div class="block">
-      <div class="label">Цель</div>
-      <p>Определить, какие особенности помогают сказке сохранять популярность среди современных школьников и как жанр меняется в цифровой среде.</p>
+    <div class="card b">
+      <div class="h4">Цель</div>
+      <p>Определить, какие особенности помогают сказке сохранять популярность среди школьников и как сюжет меняется в цифровой среде.</p>
+    </div>
+    <div class="card y">
+      <div class="h4">Гипотеза</div>
+      <p>Сказки интересны не из-за старинной формы, а благодаря понятным темам: добро и зло, ответственность, дружба, помощь, страх, испытание, справедливость.</p>
+    </div>
+    <div class="card">
+      <div class="h4">Объект и предмет</div>
+      <p><b>Объект</b> — сказка как литературный жанр в традиционной и современной культуре. <b>Предмет</b> — герой, конфликт, испытание, фантастика и нравственный выбор.</p>
     </div>
 
-    <div class="block bar-accent">
-      <div class="label">Гипотеза</div>
-      <p>Сказки остаются популярными благодаря темам выбора, ответственности, дружбы, справедливости, страха, испытания и победы над трудностями.</p>
-    </div>
-
-    <div class="block">
-      <div class="label">Объект и предмет</div>
-      <p><b>Объект</b> — сказка как литературный жанр в традиционной и современной культуре.
-      <b>Предмет</b> — герой, конфликт, испытание, фантастика и нравственный выбор.</p>
-    </div>
-
-    <div class="block push">
-      <div class="label">Новизна</div>
-      <p class="muted">Три формы сказки — народная, экранная и созданная ИИ — впервые сопоставлены по одинаковым критериям. Проверено, могут ли школьники отличить ИИ-текст от текста человека.</p>
-    </div>
-  </div>
-
-  <!-- Оборот (средняя панель снаружи) -->
-  <div class="panel back">
-    <div class="kicker dark">Авторы проекта</div>
-
-    <div style="display:grid; gap:4mm; margin-top:4mm">
-      <div class="person">
-        <span class="label" style="margin:0">Ученик</span>
-        <span class="name">Болатов Нурбол</span>
-      </div>
-      <div class="person">
-        <span class="label" style="margin:0">Научный руководитель</span>
-        <span class="name">Игиликова Айжан</span>
-      </div>
-    </div>
-
-    <div class="rule"></div>
-
-    <div class="label">Где использовать «Сказку 3.0»</div>
-    <ul class="usage">
-      <li>на уроках литературы и факультативах</li>
-      <li>при сравнительном анализе текстов</li>
-      <li>для самостоятельной работы</li>
-      <li>при обсуждении возможностей и ограничений ИИ</li>
-    </ul>
-
-    <div class="rule"></div>
-
-    <div class="label">Перспективы</div>
-    <ul class="usage">
-      <li>расширить выборку участников</li>
-      <li>добавить казахские народные сказки</li>
-      <li>сравнить, как разные ИИ продолжают один сюжет</li>
-    </ul>
-
-    <div class="rule"></div>
-
-    <div class="label">Основные источники</div>
-    <ol class="sources">
-      <li>Пропп В. Я. Морфология волшебной сказки. М.: Лабиринт, 2001.</li>
-      <li>Афанасьев А. Н. Народные русские сказки: в 3 т. М.: Наука, 1984–1985.</li>
-      <li>Қасқабасов С. Қазақтың халық прозасы. Алматы: Ғылым, 1984.</li>
-      <li>Мелетинский Е. М. Герой волшебной сказки. М.; СПб., 2005.</li>
-      <li>Hutcheon L., O’Flynn S. A Theory of Adaptation. Routledge, 2013.</li>
-      <li>Дженкинс Г. Конвергентная культура. М.: РИПОЛ классик, 2019.</li>
-      <li>Miao F., Holmes W. Guidance for Generative AI in Education and Research. UNESCO, 2023.</li>
-    </ol>
-
-    <div class="push" style="display:flex; gap:4mm; align-items:flex-end">
-      <img class="qr" src="qr.png" alt="QR-код путеводителя «Сказка 3.0»">
-      <div>
-        <div class="brand">Сказка <em>3.0</em></div>
-        <p class="muted" style="font-size:6.4pt; margin-top:1mm">Наведите камеру —<br>откроется цифровой<br>путеводитель.</p>
+    <div class="push">
+      <div class="script" style="margin-bottom:1.8mm">Методы:</div>
+      <div class="pills">
+        <span class="pill g">Анализ народной сказки</span>
+        <span class="pill s">Анкетирование</span>
+        <span class="pill v">Сравнение версий</span>
+        <span class="pill b">Эксперимент «Человек или ИИ»</span>
       </div>
     </div>
   </div>
 
-  <!-- Обложка -->
-  <div class="panel cover">
-    <div class="badge">3.0</div>
-    <div class="top">
-      <div class="kicker">Исследовательский проект<br>Литература</div>
-      <h1 class="h1" style="margin-top:12mm">Почему сказки остаются популярными в&nbsp;цифровую эпоху?</h1>
-      <p class="lead" style="margin-top:4mm">От народных историй до искусственного интеллекта. Одна сказка — три формы.</p>
+  <!-- Оборот: продукт и авторы -->
+  <div class="panel sky">
+    <div class="head">
+      <div class="script">Практический продукт</div>
+      <div class="h2">Цифровой путеводитель «Сказка 3.0»</div>
     </div>
-    <div class="art">
-      <div class="foot"><span>Сказка 3.0</span><span>Народная · Экранная · ИИ</span></div>
+
+    <div class="frame tilt-l" style="height:36mm"><img src="../public/img/guide-sm.webp" alt=""></div>
+
+    <div class="sp"></div>
+    <div class="pills">
+      <span class="pill g">Народная сказка</span>
+      <span class="pill b">Современная версия</span>
+      <span class="pill v">ИИ-сказка</span>
+      <span class="pill y">Сравнительные карточки</span>
+      <span class="pill s">Интерактивные задания</span>
+      <span class="pill p">Мини-тест</span>
+    </div>
+
+    <div class="sp"></div>
+    <div class="stat4">
+      <div class="card"><b>90%</b><span>назвали понятным</span></div>
+      <div class="card"><b>85%</b><span>удобным для сравнения версий</span></div>
+      <div class="card"><b>80%</b><span>заинтересовал раздел об ИИ</span></div>
+      <div class="card y"><b>17 из 20</b><span>назвали общие признаки трёх видов сказки</span></div>
+    </div>
+
+    <div class="sp"></div>
+    <div class="script" style="font-size:11pt; margin-bottom:1.6mm">Можно использовать:</div>
+    <div class="pills">
+      <span class="pill b">на уроках литературы</span>
+      <span class="pill g">на факультативах</span>
+      <span class="pill v">в самостоятельной работе</span>
+    </div>
+
+    <div class="push">
+      <div class="people">
+        <div class="card b"><small>Ученик</small><b>Болатов Нурбол</b></div>
+        <div class="card g"><small>Руководитель</small><b>Игиликова Айжан</b></div>
+        <div class="card v"><small>Школа</small><b>Средняя школа № 296</b></div>
+        <div class="card s"><small>Секция</small><b>Литература</b></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Обложка: заголовок и большой QR -->
+  <div class="panel">
+    <div class="script">Исследовательский проект</div>
+    <h1 class="h1" style="margin-top:1.5mm">Почему сказки остаются популярными в&nbsp;цифровую эпоху</h1>
+    <div class="ribbon tilt-l" style="margin-top:3.5mm">От народных историй до искусственного интеллекта</div>
+
+    <div class="push">
+      <div class="qr-card"><img src="qr.png" alt="QR-код путеводителя «Сказка 3.0»"></div>
+      <div style="text-align:center; margin-top:4.5mm">
+        <div class="script" style="font-size:13pt">Попробуйте сами!</div>
+        <p style="font-weight:700; margin-top:1mm">Наведите камеру телефона на QR-код,<br>чтобы открыть путеводитель «Сказка 3.0»</p>
+      </div>
     </div>
   </div>
 </section>
@@ -324,165 +293,128 @@
   <i class="fold" style="left:100mm"></i>
   <i class="fold" style="left:200mm"></i>
 
-  <!-- 01 Как устроено исследование -->
+  <!-- 1. Задачи и народная сказка -->
   <div class="panel">
+    <span class="num">1</span>
     <div class="head">
-      <div>
-        <div class="kicker">Как мы работали</div>
-        <div class="h2" style="margin-top:2mm">Задачи<br>и логика</div>
-      </div>
-      <div class="bignum">1</div>
+      <div class="script">Как мы работали</div>
+      <div class="h2">Задачи исследования</div>
     </div>
 
     <ol class="tasks">
       <li>Определить основные признаки народной сказки.</li>
       <li>Сравнить народную сказку, современную адаптацию и ИИ-версию.</li>
-      <li>Провести анкетирование учащихся 4 класса.</li>
+      <li>Провести анкетирование 20 учащихся 4 класса.</li>
       <li>Провести эксперимент «Человек или ИИ: кто написал сказку?».</li>
-      <li>Создать и проверить цифровой путеводитель «Сказка 3.0».</li>
+      <li>Создать и проверить путеводитель «Сказка 3.0».</li>
     </ol>
 
-    <div class="block" style="margin-top:5mm">
-      <div class="label">Этапы</div>
-      <div class="chain">
-        <span>Теория</span><i>→</i><span>Сравнение</span><i>→</i><span>Опрос</span><i>→</i><span>Эксперимент</span><i>→</i><span>Продукт</span>
-      </div>
+    <div class="sp" style="height:5mm"></div>
+    <div class="script">Народная сказка</div>
+    <div class="label" style="font-size:10pt; margin:.6mm 0 2.4mm">Схема Проппа и выбор героя</div>
+    <div class="propp">
+      <span class="y">1. Уход</span><span class="s">2. Задание</span><span class="g">3. Испытания</span>
+      <span class="v">4. Помощник</span><span class="b">5. Борьба</span><span class="p">6. Возвращение</span>
     </div>
-
-    <div class="rule"></div>
-
-    <div class="label">Теоретическая основа</div>
-    <div class="theory">
-      <div><b>В. Я. Пропп</b><span class="muted">Повторяющаяся структура волшебной сказки: герой, задача, испытание, помощник, противник, результат.</span></div>
-      <div><b>А. Н. Афанасьев</b><span class="muted">Народные сюжеты и система традиционных персонажей.</span></div>
-      <div><b>С. Қасқабасов</b><span class="muted">Казахская народная проза и культурная природа сказки.</span></div>
-    </div>
-
-    <div class="rule"></div>
-    <div class="label">Методы</div>
-    <p>Анкетирование, наблюдение, сравнительный анализ, эксперимент, процентный анализ.</p>
+    <p style="margin-top:2.6mm; color:var(--ink-2)">В «Царевне-лягушке» Иван-царевич сжигает лягушачью кожу раньше времени, и ему приходится исправлять собственную ошибку.</p>
+    <div class="script" style="font-size:11pt; margin-top:2mm">Герой раскрывается через поступок!</div>
 
     <div class="push">
-      <div class="rule"></div>
       <div class="label">Выборка</div>
-      <div class="method">
-        <div><b>20</b><span>учащихся 4&nbsp;класса</span></div>
-        <div><b>7</b><span>вопросов анкеты</span></div>
-        <div><b>6</b><span>текстов в&nbsp;эксперименте</span></div>
-        <div><b>120</b><span>ответов</span></div>
+      <div class="trio">
+        <div class="card g"><b>20</b><span>учащихся 4&nbsp;класса</span></div>
+        <div class="card y"><b>6</b><span>текстов: 3 человека, 3&nbsp;ИИ</span></div>
+        <div class="card p"><b>120</b><span>ответов в&nbsp;эксперименте</span></div>
+      </div>
+      <div class="sp"></div>
+      <div class="label">Теоретическая основа</div>
+      <div class="theory">
+        <div><b>В. Я. Пропп</b><span>структура волшебной сказки</span></div>
+        <div><b>А. Н. Афанасьев</b><span>народные сюжеты и персонажи</span></div>
+        <div><b>С. Қасқабасов</b><span>казахская народная проза</span></div>
       </div>
     </div>
   </div>
 
-  <!-- 02 Три формы одной сказки -->
-  <div class="panel">
+  <!-- 2. Три формы -->
+  <div class="panel sky">
+    <span class="num">2</span>
     <div class="head">
-      <div>
-        <div class="kicker">Сравнение</div>
-        <div class="h2" style="margin-top:2mm">Одна сказка —<br>три формы</div>
-      </div>
-      <div class="bignum">2</div>
+      <div class="script">Сравнение версий</div>
+      <div class="h2">Знакомая структура в&nbsp;новой форме</div>
     </div>
 
-    <div class="forms">
-      <div class="form">
-        <img src="../public/img/folk-sm.webp" alt="">
-        <div>
-          <div class="tag" style="color:var(--green)">Народная</div>
-          <div class="ttl">«Царевна-лягушка»</div>
-          <div class="muted">Ошибка героя и путь к её исправлению. Ответственность и верность.</div>
-        </div>
-      </div>
-      <div class="form">
-        <img src="../public/img/formats-sm.webp" alt="">
-        <div>
-          <div class="tag" style="color:var(--sky)">Экранная</div>
-          <div class="ttl">«Иван Царевич и Серый Волк»</div>
-          <div class="muted">Приключения, юмор, команда. Дружба, смелость, взаимопомощь.</div>
-        </div>
-      </div>
-      <div class="form">
-        <img src="../public/img/ai-sm.webp" alt="">
-        <div>
-          <div class="tag" style="color:var(--violet)">Созданная ИИ</div>
-          <div class="ttl">«Виртуальный лес»</div>
-          <div class="muted">Три цифровых испытания. Честность и отказ от выгоды ради другого.</div>
-        </div>
-      </div>
+    <div class="card y form">
+      <img src="../public/img/folk-sm.webp" alt="">
+      <div><div class="tag">Народная сказка</div><div class="h4">«Царевна-лягушка»</div><p>Ошибка героя и путь к её исправлению. Ответственность и верность.</p></div>
+    </div>
+    <div class="card g form">
+      <img src="../public/img/web/ivan-wolf-2011-a.jpg" alt="">
+      <div><div class="tag">Современная версия, 2011</div><div class="h4">«Иван Царевич и Серый Волк»</div><p>Те же герои, но юмор, быстрые диалоги и новые ситуации.</p></div>
+    </div>
+    <div class="card v form">
+      <img src="../public/img/ai-sm.webp" alt="">
+      <div><div class="tag">ИИ-сказка</div><div class="h4">«Виртуальный лес»</div><p>Подросток Артём и три цифровых испытания. Честность важнее выгоды.</p></div>
     </div>
 
-    <div class="rule"></div>
-
-    <div class="label">Неизменная цепочка сюжета</div>
-    <div class="chain">
-      <span>Герой</span><i>→</i><span>Конфликт</span><i>→</i><span>Испытание</span><i>→</i><span>Выбор</span><i>→</i><span>Итог</span>
+    <div class="sp"></div>
+    <div class="label">Что стало с волшебством</div>
+    <div class="map">
+      <span>Волшебное царство</span><i>→</i><span class="to">Виртуальный лес</span>
+      <span>Волшебный предмет</span><i>→</i><span class="to">Электронный ключ</span>
+      <span>Испытания</span><i>→</i><span class="to">Три испытания</span>
+      <span>Выбор героя</span><i>→</i><span class="to">Награда или помощь</span>
     </div>
 
-    <div class="kept" style="margin-top:5mm">
-      <div>
-        <div class="label">Меняется</div>
-        <ul>
-          <li>Форма: книга, фильм, игра, видео, ИИ-текст</li>
-          <li>Язык и темп повествования</li>
-          <li>Облик героев и мира</li>
-          <li>Участие читателя в сюжете</li>
-        </ul>
-      </div>
-      <div class="k">
-        <div class="label">Сохраняется</div>
-        <ul>
-          <li>Герой и его путь</li>
-          <li>Испытания, раскрывающие характер</li>
-          <li>Волшебный элемент</li>
-          <li>Нравственный выбор и его последствия</li>
-        </ul>
-      </div>
-    </div>
-
-    <p class="q push" style="font-size:12pt">Меняется форма —<br><em>сохраняется смысл.</em></p>
+    <div class="ribbon push" style="text-align:center">Структура прежняя: герой → проблема → испытание → выбор → финал</div>
   </div>
 
-  <!-- 03 Результаты -->
+  <!-- 3. Результаты -->
   <div class="panel">
+    <span class="num">3</span>
     <div class="head">
-      <div>
-        <div class="kicker">Результаты</div>
-        <div class="h2" style="margin-top:2mm">Что мы<br>узнали</div>
-      </div>
-      <div class="bignum">3</div>
+      <div class="script">Анкетирование и эксперимент</div>
+      <div class="h2">Интерес остался, изменился формат</div>
     </div>
 
-    <div class="stats">
-      <div class="stat"><div class="n">90%</div><div class="t">считают сказочные сюжеты интересными сегодня</div></div>
-      <div class="stat"><div class="n">45%</div><div class="t">предпочитают современные версии сказок</div></div>
-      <div class="stat"><div class="n">65%</div><div class="t">хотели бы прочитать сказку, созданную ИИ</div></div>
-      <div class="stat"><div class="n">35%</div><div class="t">выбирают фильмы как самый интересный формат</div></div>
+    <div class="card y tilt-l hero-stat">
+      <b>90%</b><span>считают, что сказки интересны подросткам (18 из 20)</span>
     </div>
 
-    <div class="rule"></div>
-
-    <div class="label">Эксперимент «Человек или ИИ?»</div>
+    <div class="sp"></div>
+    <div class="label">Самый интересный формат сказки</div>
     <div class="bars">
-      <div class="bar"><span>Общий результат</span><span class="track"><span class="fill" style="display:block;width:65%"></span></span><b>65%</b></div>
-      <div class="bar"><span>Узнали ИИ-тексты</span><span class="track"><span class="fill" style="display:block;width:72%"></span></span><b>72%</b></div>
-      <div class="bar"><span>Узнали текст человека</span><span class="track"><span class="fill" style="display:block;width:58%;background:var(--sky)"></span></span><b>58%</b></div>
+      <div class="bar"><span>Фильмы</span><div class="track"><div class="fill" style="width:100%"></div></div><b>35%</b></div>
+      <div class="bar"><span>Компьютерные игры</span><div class="track"><div class="fill" style="width:71%"></div></div><b>25%</b></div>
+      <div class="bar"><span>Мультфильмы</span><div class="track"><div class="fill" style="width:57%"></div></div><b>20%</b></div>
+      <div class="bar"><span>Социальные сети</span><div class="track"><div class="fill" style="width:29%"></div></div><b>10%</b></div>
+      <div class="bar hl"><span>Книга</span><div class="track"><div class="fill" style="width:29%; background:var(--red)"></div></div><b>10%</b></div>
     </div>
-    <p class="muted" style="font-size:6.3pt; margin-top:2mm">ИИ выдают предсказуемый финал, повторы и слишком прямая мораль.</p>
 
-    <div class="rule"></div>
-
-    <div class="label">Выводы</div>
-    <ol class="concl">
-      <li>Форма меняется, но цепочка «герой — конфликт — испытание — выбор — итог» сохраняется.</li>
-      <li>Цифровая эпоха не вытесняет сказку, а переносит её в кино, игры, соцсети и ИИ-тексты.</li>
-      <li>Гипотеза подтвердилась: сказку держат понятные ценности и нравственный выбор.</li>
-    </ol>
-
-    <div class="push" style="background:var(--soft); border-radius:2mm; padding:3mm">
-      <div style="display:flex; align-items:baseline; gap:2.5mm">
-        <span style="font-size:15pt; font-weight:800; letter-spacing:-.03em; color:var(--blue)">17/20</span>
-        <span style="font-size:6.4pt; color:var(--ink-2); line-height:1.3">после работы с путеводителем верно назвали общие признаки трёх форм сказки</span>
+    <div class="sp"></div>
+    <div class="label" style="margin-bottom:.6mm">«Человек или ИИ: кто написал сказку?»</div>
+    <div class="hero-stat" style="gap:3.5mm">
+      <div><b style="font-size:20pt">65%</b><div class="muted" style="font-size:6.2pt; font-weight:700">верно: 78 из 120</div></div>
+      <div>
+        <div class="tline" style="margin-top:0"><span>ИИ-тексты</span><span>≈ 72%</span></div>
+        <div class="tbar"><div style="width:72%; background:var(--violet)"></div></div>
+        <div class="tline"><span>Тексты человека</span><span>≈ 58%</span></div>
+        <div class="tbar"><div style="width:58%; background:var(--salmon)"></div></div>
       </div>
+    </div>
+
+    <div class="ribbon" style="margin-top:3mm; font-size:6.8pt; text-align:center">Все шесть текстов угадали только 3 учащихся из 20</div>
+
+    <div class="sp"></div>
+    <div class="label">По чему узнавали автора</div>
+    <div class="duo">
+      <div class="card v"><div class="h4" style="font-size:7.4pt">Текст ИИ</div><ul><li>предсказуемый финал</li><li>повторяющиеся слова</li><li>слишком прямая мораль</li></ul></div>
+      <div class="card g"><div class="h4" style="font-size:7.4pt">Текст человека</div><ul><li>необычные детали</li><li>неожиданные поступки</li><li>живые диалоги</li></ul></div>
+    </div>
+
+    <div class="dark push">
+      <div class="script">Выводы · гипотеза подтвердилась!</div>
+      <p>Цифровая эпоха не уничтожает сказку. Она даёт ей новые способы существования.</p>
     </div>
   </div>
 </section>
