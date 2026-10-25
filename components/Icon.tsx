@@ -1,0 +1,86 @@
+import {
+  BarChart3,
+  BookOpen,
+  Bot,
+  Brain,
+  CheckSquare,
+  Clapperboard,
+  Cog,
+  Columns3,
+  Compass,
+  Crown,
+  Feather,
+  Film,
+  Gamepad2,
+  Heart,
+  Home,
+  Library,
+  Lightbulb,
+  MessageCircle,
+  Mountain,
+  Music,
+  Palette,
+  PawPrint,
+  PenLine,
+  Pencil,
+  Puzzle,
+  Scroll,
+  Search,
+  Sparkles,
+  Trees,
+  User,
+  UserCheck,
+  Users,
+  WandSparkles,
+  Zap,
+  type LucideProps,
+} from "lucide-react";
+
+const MAP = {
+  home: Home,
+  house: Home,
+  book: BookOpen,
+  film: Film,
+  clapper: Clapperboard,
+  bot: Bot,
+  columns: Columns3,
+  puzzle: Puzzle,
+  sparkles: Sparkles,
+  check: CheckSquare,
+  chart: BarChart3,
+  brain: Brain,
+  cog: Cog,
+  compass: Compass,
+  crown: Crown,
+  feather: Feather,
+  gamepad: Gamepad2,
+  heart: Heart,
+  library: Library,
+  lightbulb: Lightbulb,
+  message: MessageCircle,
+  mountain: Mountain,
+  music: Music,
+  palette: Palette,
+  paw: PawPrint,
+  pen: PenLine,
+  pencil: Pencil,
+  scroll: Scroll,
+  search: Search,
+  trees: Trees,
+  user: User,
+  "user-check": UserCheck,
+  users: Users,
+  wand: WandSparkles,
+  zap: Zap,
+};
+
+export function NavIcon({ name, ...props }: { name: string } & LucideProps) {
+  const C = MAP[name as keyof typeof MAP] ?? Sparkles;
+  return <C size={18} strokeWidth={1.8} {...props} />;
+}
+
+/** Иконка из набора Lucide по короткому имени из data/*.ts. */
+export function Icon({ name, size = 20, ...props }: { name: string } & LucideProps) {
+  const C = MAP[name as keyof typeof MAP] ?? Sparkles;
+  return <C size={size} strokeWidth={1.8} aria-hidden {...props} />;
+}
