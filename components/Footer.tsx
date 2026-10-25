@@ -5,7 +5,7 @@ export default function Footer() {
     <footer className="footer">
       <div className="footer-simple">
         <span>
-          <strong>Сказка 3.0</strong> · от фольклора до ИИ
+          <strong>Сказка 3.0</strong> · от фольклора до ИИ · Болатов Нурбол
         </span>
         <span className="footer-links">
           <Link href="/o-proekte/">О проекте</Link>

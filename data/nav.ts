@@ -14,9 +14,10 @@ export const NAV: NavItem[] = [
   { href: "/ii-skazka/", label: "ИИ-сказка", icon: "bot", color: "var(--purple)", short: "«Виртуальный лес»" },
   { href: "/sravnenie/", label: "Сравнение", icon: "columns", color: "var(--orange)", short: "Что изменилось, а что осталось" },
   { href: "/interaktiv/", label: "Интерактив", icon: "puzzle", color: "var(--pink)", short: "Игры и тест" },
-  { href: "/o-proekte/", label: "Результаты", icon: "chart", color: "var(--primary)", short: "Анкета, эксперимент и выводы" },
+  { href: "/rezultaty/", label: "Результаты", icon: "chart", color: "var(--primary)", short: "Анкета, эксперимент и выводы" },
   { href: "/laboratoriya/", label: "Творческая лаборатория", icon: "pencil", color: "var(--brown)", short: "Создай сказку 3.0" },
   { href: "/fakty/", label: "Факты", icon: "sparkles", color: "var(--teal)", short: "Удивительный мир сказок" },
+  { href: "/o-proekte/", label: "О проекте", icon: "user", color: "var(--secondary)", short: "Автор, руководитель и цель исследования" },
 ];
 
 export function nextStation(href: string): NavItem | undefined {
