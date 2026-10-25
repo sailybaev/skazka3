@@ -22,7 +22,7 @@ export default function Rezultaty() {
       <PageHero
         eyebrow="Практическая часть"
         title="Результаты исследования"
-        text="Анкетирование, эксперимент «Человек или ИИ?» и проверка путеводителя среди 20 учащихся 8 класса."
+        text="Анкетирование, эксперимент «Человек или ИИ?» и проверка путеводителя среди 20 учащихся 4 класса."
         image="/img/guide.webp"
         alt="Путеводитель «Сказка 3.0» на ноутбуке и планшете"
       />
@@ -53,7 +53,7 @@ export default function Rezultaty() {
       </section>
 
       <section className="section">
-        <SectionHead title="Результаты анкетирования" text="Ответы 20 учащихся 8 класса, в процентах." />
+        <SectionHead title="Результаты анкетирования" text="Ответы 20 учащихся 4 класса, в процентах." />
         <div className="grid grid-2">
           <ChartCard title="Самый интересный формат сказки" rows={SURVEY.formats} color="var(--sky)" />
           <ChartCard title="Что привлекает в сказочных сюжетах" rows={SURVEY.attracts} color="var(--teal)" />
