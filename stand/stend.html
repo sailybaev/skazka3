@@ -8,7 +8,7 @@
   Реальный размер: левая панель 30×80 см, центральная 60×80 см, правая 30×80 см.
   Шрифты: заголовок ≥ 44 pt, названия разделов ≥ 26 pt, основной текст ≥ 18 pt.
   На центральной панели слева от темы — пунктирное поле 14×7 см под регистрационный код (шифр).
-  Имён участника, руководителя, школы и региона на стенде нет — по требованию к анонимности для жюри.
+  Автор и научный руководитель указаны на правой панели.
 -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
@@ -192,6 +192,11 @@
   .qrbox .t { font-size: 34pt; font-weight: 900; line-height: 1.05; color: var(--sun); }
   .qrbox p { color: #fff !important; margin-top: .35cm; }
 
+  .authors { display: grid; gap: .5cm; align-content: center; padding: .8cm 1.1cm; }
+  .authors .role { display: block; font-size: 18pt; font-weight: 900; letter-spacing: .06em; text-transform: uppercase; color: var(--grape); }
+  .authors b { display: block; font-size: 28pt; line-height: 1.1; font-weight: 900; }
+  .authors .who { display: block; font-size: 20pt; color: var(--ink-2); }
+
   .grow { flex: 1; }
 </style>
 </head>
@@ -373,7 +378,10 @@
     <p style="font-size:18pt;margin-top:.4cm">Полный список (13 источников) — по QR-коду.</p>
   </div>
 
-  <div class="pic grow"><img src="../public/img/guide.webp" alt=""></div>
+  <div class="card grape tint authors grow">
+    <div><span class="role">Автор</span><b>Болатов Нурбол</b><span class="who">ученик 4 класса</span></div>
+    <div><span class="role">Научный руководитель</span><b>Игиликова Айжан Калдыбековна</b></div>
+  </div>
 
   <div class="card qrbox">
     <img src="qr.png" alt="QR-код путеводителя">
