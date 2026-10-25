@@ -143,7 +143,8 @@
   }
   .brand .s { color: var(--sun); }
   h1 { font-size: 76pt; line-height: 1; font-weight: 900; letter-spacing: -.02em; }  /* тема ≥ 44 pt */
-  h1 .hl { background: linear-gradient(transparent 58%, var(--sun) 58%, var(--sun) 92%, transparent 92%); padding: 0 .1em; }
+  h1 .hl { position: relative; z-index: 0; padding: 0 .1em; }
+  h1 .hl::after { content: ""; position: absolute; z-index: -1; left: 0; right: 0; bottom: .06em; height: .36em; background: var(--sun); border-radius: .08em; }
   .sub { font-size: 30pt; font-weight: 800; color: var(--coral); margin-top: .4cm; }
 
   .question {
