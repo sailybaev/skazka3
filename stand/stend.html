@@ -1,0 +1,389 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Стенд «Сказка 3.0»</title>
+<!--
+  Складной выставочный стенд для конкурса «Зерде» (приложение 9 Положения).
+  Реальный размер: левая панель 30×80 см, центральная 60×80 см, правая 30×80 см.
+  Шрифты: заголовок ≥ 44 pt, названия разделов ≥ 26 pt, основной текст ≥ 18 pt.
+  На центральной панели слева от темы — пунктирное поле 14×7 см под регистрационный код (шифр).
+  Имён участника, руководителя, школы и региона на стенде нет — по требованию к анонимности для жюри.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  @page left   { size: 30cm 80cm; margin: 0; }
+  @page center { size: 60cm 80cm; margin: 0; }
+  @page right  { size: 30cm 80cm; margin: 0; }
+
+  :root {
+    --ink: #2a2252;
+    --ink-2: #4a4373;
+    --paper: #fffaf0;
+    --sky: #2f9bff;   --sky-l: #dff0ff;
+    --sun: #ffb800;   --sun-l: #fff1c7;
+    --coral: #ff5d6c; --coral-l: #ffe1e4;
+    --mint: #18b87a;  --mint-l: #d8f6e8;
+    --grape: #8a5cf6; --grape-l: #ece4ff;
+    --teal: #13a6b8;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: #e9e4f5; }
+  body {
+    font-family: Nunito, "Arial Rounded MT Bold", Arial, sans-serif;
+    color: var(--ink);
+    font-size: 22pt;              /* основной текст ≥ 18 pt */
+    line-height: 1.3;
+    font-weight: 700;
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
+  }
+  .stand { display: flex; gap: 1.2cm; padding: 1.2cm; width: max-content; align-items: flex-start; }
+  @media print {
+    html, body { background: none; }
+    .stand { display: block; padding: 0; }
+  }
+
+  .panel {
+    position: relative; overflow: hidden;
+    height: 80cm; padding: 2.2cm 2cm 2cm;
+    background: var(--paper);
+    display: flex; flex-direction: column; gap: 1.3cm;
+    break-after: page;
+  }
+  .panel.l { width: 30cm; page: left; }
+  .panel.c { width: 60cm; page: center; padding: 2.2cm 2.6cm 2cm; }
+  .panel.r { width: 30cm; page: right; break-after: auto; }
+  .panel > * { position: relative; z-index: 1; }
+
+  /* весёлый фон: волна сверху, конфетти */
+  .wave { position: absolute; left: 0; right: 0; top: 0; height: 9cm; z-index: 0; }
+  .wave.bottom { top: auto; bottom: 0; transform: scaleY(-1); height: 6cm; }
+  .deco { position: absolute; z-index: 0; }
+
+  /* шапка панели */
+  .panel-tag {
+    align-self: flex-start;
+    display: inline-flex; align-items: center; gap: .5cm;
+    background: #fff; border: .12cm solid var(--ink); border-radius: 99cm;
+    padding: .35cm .9cm .35cm .35cm;
+    font-size: 24pt; font-weight: 900; letter-spacing: .02em;
+    box-shadow: .25cm .25cm 0 var(--ink);
+  }
+  .panel-tag .num {
+    width: 1.6cm; height: 1.6cm; border-radius: 50%; display: grid; place-items: center;
+    color: #fff; font-size: 28pt; font-weight: 900;
+  }
+
+  /* карточки разделов */
+  .card {
+    background: #fff; border: .12cm solid var(--ink); border-radius: 1cm;
+    padding: 1cm 1.1cm 1.1cm; box-shadow: .3cm .3cm 0 var(--shadow, var(--ink));
+  }
+  .card h2 {
+    display: flex; align-items: center; gap: .45cm;
+    font-size: 34pt; line-height: 1.05; font-weight: 900; letter-spacing: -.01em;  /* разделы ≥ 26 pt */
+    margin-bottom: .5cm;
+  }
+  .ico {
+    flex: none; width: 1.9cm; height: 1.9cm; border-radius: .55cm;
+    display: grid; place-items: center; color: #fff; transform: rotate(-6deg);
+  }
+  .ico svg { width: 1.2cm; height: 1.2cm; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+  .card p { color: var(--ink-2); }
+  .card p + p { margin-top: .35cm; }
+
+  .sky   { --c: var(--sky);   --cl: var(--sky-l); }
+  .sun   { --c: var(--sun);   --cl: var(--sun-l); }
+  .coral { --c: var(--coral); --cl: var(--coral-l); }
+  .mint  { --c: var(--mint);  --cl: var(--mint-l); }
+  .grape { --c: var(--grape); --cl: var(--grape-l); }
+  .card.sky, .card.sun, .card.coral, .card.mint, .card.grape { --shadow: var(--c); background: #fff; }
+  .card .ico, .panel-tag .num { background: var(--c); }
+  .tint { background: var(--cl) !important; }
+
+  /* списки */
+  ol.steps { list-style: none; display: grid; gap: .4cm; counter-reset: s; }
+  ol.steps li { counter-increment: s; display: grid; grid-template-columns: 1.3cm 1fr; gap: .4cm; align-items: start; color: var(--ink-2); }
+  ol.steps li::before {
+    content: counter(s); width: 1.3cm; height: 1.3cm; border-radius: 50%;
+    background: var(--c); color: #fff; display: grid; place-items: center; font-weight: 900; font-size: 22pt;
+  }
+  ul.ticks { list-style: none; display: grid; gap: .3cm; }
+  ul.ticks li { position: relative; padding-left: 1.1cm; color: var(--ink-2); }
+  ul.ticks li::before {
+    content: ""; position: absolute; left: 0; top: .2cm; width: .62cm; height: .62cm;
+    background: var(--c); clip-path: polygon(50% 0, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+  }
+
+  .chips { display: flex; flex-wrap: wrap; gap: .3cm; }
+  .chip { padding: .2cm .55cm; border-radius: 99cm; font-weight: 800; color: #fff; font-size: 20pt; }
+
+  .nums { display: grid; grid-template-columns: 1fr 1fr; gap: .4cm; margin-top: .6cm; }
+  .nums div { border-radius: .6cm; padding: .4cm .5cm; background: var(--cl); }
+  .nums b { display: block; font-size: 44pt; line-height: 1; font-weight: 900; color: var(--c); }
+  .nums span { font-size: 18pt; color: var(--ink-2); }
+
+  .pic { border: .12cm solid var(--ink); border-radius: 1cm; overflow: hidden; box-shadow: .3cm .3cm 0 var(--ink); }
+  .pic img { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+  /* центральная панель */
+  .head { display: grid; grid-template-columns: 14cm 1fr; gap: 1.2cm; align-items: center; }
+  .reg {
+    width: 14cm; height: 7cm; border: .1cm dashed var(--ink); border-radius: .3cm;
+    background: rgba(255,255,255,.85);
+    display: grid; place-items: center; text-align: center;
+    color: #9a93b8; font-size: 18pt; font-weight: 700; line-height: 1.2;
+  }
+  .brand {
+    display: inline-flex; align-items: center; gap: .3cm;
+    font-size: 26pt; font-weight: 900; letter-spacing: .04em;
+    background: var(--ink); color: #fff; border-radius: 99cm; padding: .2cm .8cm;
+    margin-bottom: .5cm;
+  }
+  .brand .s { color: var(--sun); }
+  h1 { font-size: 76pt; line-height: 1; font-weight: 900; letter-spacing: -.02em; }  /* тема ≥ 44 pt */
+  h1 .hl { background: linear-gradient(transparent 58%, var(--sun) 58%, var(--sun) 92%, transparent 92%); padding: 0 .1em; }
+  .sub { font-size: 30pt; font-weight: 800; color: var(--coral); margin-top: .4cm; }
+
+  .question {
+    display: grid; grid-template-columns: auto 1fr; gap: 1cm; align-items: center;
+    background: var(--grape); color: #fff; border-color: var(--ink);
+  }
+  .question .qmark {
+    width: 4.2cm; height: 4.2cm; border-radius: 50%; background: var(--sun); color: var(--ink);
+    display: grid; place-items: center; font-size: 120pt; font-weight: 900; line-height: 1;
+    border: .12cm solid var(--ink); transform: rotate(-8deg);
+  }
+  .question .lbl { font-size: 26pt; font-weight: 900; letter-spacing: .06em; text-transform: uppercase; color: var(--sun); }
+  .question .q { font-size: 44pt; line-height: 1.08; font-weight: 900; margin-top: .2cm; }
+
+  .forms { display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; gap: .5cm; align-items: center; }
+  .form { text-align: center; border-radius: .8cm; border: .12cm solid var(--ink); background: #fff; overflow: hidden; }
+  .form img { display: block; width: 100%; height: 6.4cm; object-fit: cover; border-bottom: .12cm solid var(--ink); }
+  .form b { display: block; font-size: 28pt; font-weight: 900; padding: .35cm .3cm 0; }
+  .form span { display: block; font-size: 18pt; color: var(--ink-2); padding: 0 .4cm .45cm; }
+  .arrow { font-size: 60pt; font-weight: 900; color: var(--coral); line-height: 1; }
+
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: .7cm; }
+  .stat { border-radius: 1cm; padding: .7cm .6cm; text-align: center; color: #fff; border: .12cm solid var(--ink); box-shadow: .25cm .25cm 0 var(--ink); }
+  .stat:nth-child(odd) { transform: rotate(-2deg); }
+  .stat:nth-child(even) { transform: rotate(2deg); }
+  .stat b { display: block; font-size: 96pt; line-height: .95; font-weight: 900; letter-spacing: -.03em; }
+  .stat span { display: block; font-size: 20pt; line-height: 1.2; font-weight: 800; margin-top: .25cm; }
+
+  .chain { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: .35cm; }
+  .chain span { padding: .3cm .75cm; border-radius: 99cm; color: #fff; font-weight: 900; font-size: 28pt; border: .1cm solid var(--ink); }
+  .chain i { font-style: normal; font-weight: 900; font-size: 34pt; color: var(--ink); }
+  .result-text { font-size: 30pt; line-height: 1.22; font-weight: 800; text-align: center; color: var(--ink); margin-top: .7cm; }
+
+  /* правая панель */
+  .concl { list-style: none; display: grid; gap: .5cm; counter-reset: c; }
+  .concl li { counter-increment: c; display: grid; grid-template-columns: 1.6cm 1fr; gap: .45cm; color: var(--ink-2); }
+  .concl li::before {
+    content: counter(c); width: 1.6cm; height: 1.6cm; border-radius: .45cm; transform: rotate(-6deg);
+    background: var(--c); color: #fff; display: grid; place-items: center; font-weight: 900; font-size: 28pt;
+  }
+  .sources { list-style: none; display: grid; gap: .3cm; counter-reset: s; font-size: 18pt; line-height: 1.25; color: var(--ink-2); font-weight: 600; }
+  .sources li { counter-increment: s; display: grid; grid-template-columns: .9cm 1fr; }
+  .sources li::before { content: counter(s) "."; font-weight: 900; color: var(--c); }
+  .qrbox { display: grid; grid-template-columns: 11cm 1fr; gap: .9cm; align-items: center; background: var(--ink); color: #fff; border-color: var(--ink); }
+  .qrbox img { width: 11cm; height: 11cm; background: #fff; padding: .5cm; border-radius: .6cm; image-rendering: pixelated; display: block; }
+  .qrbox .t { font-size: 34pt; font-weight: 900; line-height: 1.05; color: var(--sun); }
+  .qrbox p { color: #fff !important; margin-top: .35cm; }
+
+  .grow { flex: 1; }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <symbol id="i-bulb" viewBox="0 0 24 24"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></symbol>
+    <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></symbol>
+    <symbol id="i-list" viewBox="0 0 24 24"><path d="m3 17 2 2 4-4"/><path d="m3 7 2 2 4-4"/><path d="M13 6h8"/><path d="M13 12h8"/><path d="M13 18h8"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></symbol>
+    <symbol id="i-flask" viewBox="0 0 24 24"><path d="M9 3h6"/><path d="M10 3v6L4.5 19.5A1 1 0 0 0 5.4 21h13.2a1 1 0 0 0 .9-1.5L14 9V3"/><path d="M7 15h10"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m8.5 12 2.5 2.5 4.5-5"/></symbol>
+    <symbol id="i-rocket" viewBox="0 0 24 24"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24"><path d="M2 4h6a4 4 0 0 1 4 4v13a3 3 0 0 0-3-3H2z"/><path d="M22 4h-6a4 4 0 0 0-4 4v13a3 3 0 0 1 3-3h7z"/></symbol>
+    <symbol id="i-trophy" viewBox="0 0 24 24"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></symbol>
+    <symbol id="star" viewBox="0 0 24 24"><path d="M12 1.5l3.1 6.6 7.2.9-5.3 5 1.4 7.1L12 17.6l-6.4 3.5L7 14l-5.3-5 7.2-.9z"/></symbol>
+    <symbol id="spark" viewBox="0 0 24 24"><path d="M12 0c.8 6.5 5.5 11.2 12 12-6.5.8-11.2 5.5-12 12-.8-6.5-5.5-11.2-12-12C6.5 11.2 11.2 6.5 12 0z"/></symbol>
+  </defs>
+</svg>
+
+<div class="stand">
+
+<!-- ===================== ЛЕВАЯ ПАНЕЛЬ: актуальность, цель, задачи, методы ===================== -->
+<section class="panel l">
+  <svg class="wave" viewBox="0 0 300 90" preserveAspectRatio="none"><path d="M0 0H300V52C250 76 200 30 150 50S50 80 0 56Z" fill="#dff0ff"/></svg>
+  <svg class="wave bottom" viewBox="0 0 300 90" preserveAspectRatio="none"><path d="M0 0H300V52C250 76 200 30 150 50S50 80 0 56Z" fill="#fff1c7"/></svg>
+  <svg class="deco" style="right:1.6cm;top:2.2cm;width:2.4cm;height:2.4cm;fill:var(--sun)"><use href="#star"/></svg>
+  <svg class="deco" style="right:4.6cm;top:4.6cm;width:1.2cm;height:1.2cm;fill:var(--coral)"><use href="#spark"/></svg>
+  <svg class="deco" style="left:1cm;bottom:1.4cm;width:1.8cm;height:1.8cm;fill:var(--grape)"><use href="#spark"/></svg>
+  <svg class="deco" style="right:2cm;bottom:2.4cm;width:1.4cm;height:1.4cm;fill:var(--mint)"><use href="#star"/></svg>
+
+  <div class="panel-tag sky"><span class="num">1</span>С ЧЕГО МЫ НАЧАЛИ</div>
+
+  <div class="card sky">
+    <h2><span class="ico"><svg><use href="#i-bulb"/></svg></span>Актуальность</h2>
+    <p>Сегодня дети встречают сказку не только в книге, но и в мультфильмах, играх и даже в историях, которые пишет искусственный интеллект (ИИ).</p>
+    <p>Важно понять, почему старые сюжеты до сих пор нам интересны.</p>
+  </div>
+
+  <div class="card coral">
+    <h2><span class="ico"><svg><use href="#i-target"/></svg></span>Цель</h2>
+    <p>Узнать, что помогает сказке оставаться любимой у школьников и как она меняется в цифровом мире.</p>
+  </div>
+
+  <div class="card grape">
+    <h2><span class="ico"><svg><use href="#i-flask"/></svg></span>Гипотеза</h2>
+    <p>Сказки любят не за старинную форму, а за понятные темы: дружбу, выбор, смелость, справедливость и победу над трудностями.</p>
+  </div>
+
+  <div class="card mint">
+    <h2><span class="ico"><svg><use href="#i-list"/></svg></span>Задачи</h2>
+    <ol class="steps">
+      <li>Найти главные признаки народной сказки.</li>
+      <li>Сравнить народную сказку, современную версию и сказку от ИИ.</li>
+      <li>Провести анкету среди учеников 4 класса.</li>
+      <li>Провести эксперимент «Человек или ИИ: кто написал сказку?».</li>
+      <li>Создать и проверить цифровой путеводитель «Сказка 3.0».</li>
+    </ol>
+  </div>
+
+  <div class="card sun">
+    <h2><span class="ico"><svg><use href="#i-search"/></svg></span>Методы</h2>
+    <div class="chips">
+      <span class="chip" style="background:var(--sky)">анкетирование</span>
+      <span class="chip" style="background:var(--coral)">наблюдение</span>
+      <span class="chip" style="background:var(--mint)">сравнение</span>
+      <span class="chip" style="background:var(--grape)">эксперимент</span>
+      <span class="chip" style="background:var(--teal)">подсчёт процентов</span>
+    </div>
+    <div class="nums">
+      <div class="sky"><b>20</b><span>участников, 4 класс</span></div>
+      <div class="coral"><b>7</b><span>вопросов анкеты</span></div>
+      <div class="mint"><b>6</b><span>текстов в эксперименте</span></div>
+      <div class="grape"><b>120</b><span>полученных ответов</span></div>
+    </div>
+  </div>
+
+  <div class="pic grow"><img src="../public/img/formats.webp" alt=""></div>
+</section>
+
+<!-- ===================== ЦЕНТРАЛЬНАЯ ПАНЕЛЬ: тема, исследовательский вопрос, главный результат ===================== -->
+<section class="panel c">
+  <svg class="wave" viewBox="0 0 600 90" preserveAspectRatio="none"><path d="M0 0H600V60C520 86 440 34 330 56S120 88 0 58Z" fill="#fff1c7"/></svg>
+  <svg class="wave bottom" viewBox="0 0 600 90" preserveAspectRatio="none"><path d="M0 0H600V60C520 86 440 34 330 56S120 88 0 58Z" fill="#ece4ff"/></svg>
+  <svg class="deco" style="right:2cm;top:1.6cm;width:3cm;height:3cm;fill:var(--coral)"><use href="#star"/></svg>
+  <svg class="deco" style="right:6cm;top:1.2cm;width:1.4cm;height:1.4cm;fill:var(--sky)"><use href="#spark"/></svg>
+  <svg class="deco" style="left:1cm;bottom:1.2cm;width:2.2cm;height:2.2cm;fill:var(--sun)"><use href="#star"/></svg>
+  <svg class="deco" style="right:1.4cm;bottom:1.6cm;width:1.8cm;height:1.8cm;fill:var(--mint)"><use href="#spark"/></svg>
+
+  <div class="head">
+    <div class="reg">Место для<br>регистрационного кода<br>(шифра)</div>
+    <div>
+      <div class="brand"><span class="s">★</span> СКАЗКА 3.0</div>
+      <h1>Почему сказки остаются <span class="hl">популярными</span> в цифровую эпоху?</h1>
+      <p class="sub">От народной сказки до искусственного интеллекта</p>
+    </div>
+  </div>
+
+  <div class="pic grow" style="min-height:18cm"><img src="../public/img/hero.webp" alt=""></div>
+
+  <div class="card question">
+    <div class="qmark">?</div>
+    <div>
+      <div class="lbl">Исследовательский вопрос</div>
+      <div class="q">Что в сказке остаётся неизменным, когда она переходит из книги в мультфильм, игру и текст ИИ?</div>
+    </div>
+  </div>
+
+  <div class="forms">
+    <div class="form"><img src="../public/img/folk.webp" alt=""><b>Народная</b><span>«Царевна-лягушка», «Иван-царевич и Серый Волк»</span></div>
+    <div class="arrow">→</div>
+    <div class="form"><img src="../public/img/web/ivan-wolf-2011-a.jpg" alt=""><b>Современная</b><span>мультфильм, игра, кино</span></div>
+    <div class="arrow">→</div>
+    <div class="form"><img src="../public/img/ai.webp" alt=""><b>Сказка от ИИ</b><span>текст, созданный нейросетью</span></div>
+  </div>
+
+  <div class="card sun tint">
+    <h2><span class="ico" style="background:var(--coral)"><svg><use href="#i-trophy"/></svg></span>Главный результат</h2>
+    <div class="stats">
+      <div class="stat" style="background:var(--mint)"><b>90%</b><span>считают сказочные сюжеты интересными</span></div>
+      <div class="stat" style="background:var(--sky)"><b>45%</b><span>больше любят современные версии</span></div>
+      <div class="stat" style="background:var(--grape)"><b>65%</b><span>хотят прочитать сказку от ИИ</span></div>
+      <div class="stat" style="background:var(--coral)"><b>65%</b><span>верно угадали: человек или ИИ</span></div>
+    </div>
+    <p class="result-text">Меняется форма сказки, но её «сердце» остаётся тем же:</p>
+    <div class="chain" style="margin-top:.5cm">
+      <span style="background:var(--sky)">герой</span><i>→</i>
+      <span style="background:var(--coral)">конфликт</span><i>→</i>
+      <span style="background:var(--sun);color:var(--ink)">испытание</span><i>→</i>
+      <span style="background:var(--grape)">выбор</span><i>→</i>
+      <span style="background:var(--mint)">результат</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== ПРАВАЯ ПАНЕЛЬ: выводы, практическая значимость, источники, QR-код ===================== -->
+<section class="panel r">
+  <svg class="wave" viewBox="0 0 300 90" preserveAspectRatio="none"><path d="M0 0H300V52C250 76 200 30 150 50S50 80 0 56Z" fill="#d8f6e8"/></svg>
+  <svg class="wave bottom" viewBox="0 0 300 90" preserveAspectRatio="none"><path d="M0 0H300V52C250 76 200 30 150 50S50 80 0 56Z" fill="#ffe1e4"/></svg>
+  <svg class="deco" style="right:1.6cm;top:2.2cm;width:2.4cm;height:2.4cm;fill:var(--grape)"><use href="#star"/></svg>
+  <svg class="deco" style="right:4.6cm;top:4.8cm;width:1.2cm;height:1.2cm;fill:var(--sun)"><use href="#spark"/></svg>
+  <svg class="deco" style="right:1cm;bottom:1.2cm;width:1.8cm;height:1.8cm;fill:var(--sky)"><use href="#spark"/></svg>
+
+  <div class="panel-tag mint"><span class="num">3</span>ЧТО МЫ УЗНАЛИ</div>
+
+  <div class="card mint">
+    <h2><span class="ico"><svg><use href="#i-check"/></svg></span>Выводы</h2>
+    <ol class="concl">
+      <li>Сказка меняет форму, но сохраняет главное: героя, испытание и выбор.</li>
+      <li>Цифровой мир не вытесняет сказку, а переносит её в кино, игры и тексты ИИ.</li>
+      <li>Гипотеза подтвердилась: сказку любят за понятные людям ценности.</li>
+      <li>Отличить сказку ИИ от сказки человека непросто: только 3 ученика из 20 угадали все 6 текстов.</li>
+    </ol>
+  </div>
+
+  <div class="card coral">
+    <h2><span class="ico"><svg><use href="#i-rocket"/></svg></span>Практическая значимость</h2>
+    <p style="margin-bottom:.35cm">Путеводитель «Сказка 3.0» можно использовать:</p>
+    <ul class="ticks">
+      <li>на уроках литературы и чтения;</li>
+      <li>для сравнения разных версий сказки;</li>
+      <li>для самостоятельной работы дома;</li>
+      <li>чтобы обсудить, что умеет и чего не умеет ИИ.</li>
+    </ul>
+    <p style="margin-top:.35cm">17 из 20 учеников после работы с путеводителем правильно назвали общие признаки сказок.</p>
+  </div>
+
+  <div class="card sky">
+    <h2><span class="ico"><svg><use href="#i-book"/></svg></span>Источники</h2>
+    <ol class="sources">
+      <li>Пропп В. Я. Морфология волшебной сказки. М.: Лабиринт, 2001.</li>
+      <li>Афанасьев А. Н. Народные русские сказки: в 3 т. М.: Наука, 1984–1985.</li>
+      <li>Қасқабасов С. Қазақтың халық прозасы. Алматы: Ғылым, 1984.</li>
+      <li>Бабалар сөзі. 74-том. Қиял-ғажайып ертегілер. Астана: Фолиант, 2011.</li>
+      <li>Hutcheon L., O'Flynn S. A Theory of Adaptation. London: Routledge, 2013.</li>
+      <li>Miao F., Holmes W. Guidance for Generative AI in Education and Research. Paris: UNESCO, 2023.</li>
+    </ol>
+    <p style="font-size:18pt;margin-top:.4cm">Полный список (13 источников) — по QR-коду.</p>
+  </div>
+
+  <div class="pic grow"><img src="../public/img/guide.webp" alt=""></div>
+
+  <div class="card qrbox">
+    <img src="qr.png" alt="QR-код путеводителя">
+    <div>
+      <div class="t">Наведи камеру!</div>
+      <p>Откроется путеводитель «Сказка 3.0»: сказки, игры и тесты.</p>
+    </div>
+  </div>
+</section>
+
+</div>
+</body>
+</html>
