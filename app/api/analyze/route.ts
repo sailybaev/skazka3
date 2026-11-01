@@ -129,7 +129,8 @@ export async function POST(req: Request) {
 
   if (res && !res.ok) console.error("anthropic", res.status, await res.clone().text());
   if (!res || !res.ok) {
-    const hint = !res ? " (нет связи с API)" : res.status === 401 ? " (неверный ключ API)" : res.status === 400 ? " (запрос отклонён, проверьте баланс API)" : res.status === 429 ? " (лимит запросов)" : ` (код ${res.status})`;
+    const detail = res ? await res.clone().json().then((j) => j?.error?.message as string | undefined).catch(() => undefined) : undefined;
+    const hint = !res ? " (нет связи с API)" : res.status === 401 ? " (неверный ключ API)" : res.status === 400 ? " (запрос отклонён, проверьте баланс API)" : res.status === 429 ? " (лимит запросов)" : ` (код ${res.status}${detail ? `: ${detail}` : ""})`;
     return Response.json({ error: `ИИ сейчас недоступен${hint}. Попробуйте позже.` }, { status: 502 });
   }
   try {
