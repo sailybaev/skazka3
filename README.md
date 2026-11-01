@@ -21,7 +21,7 @@ bun run start    # раздать out/ локально
 
 ## Где что лежит
 
-- `app/` — страницы: главная, `narodnaya`, `sovremennye`, `ii-skazka`, `sravnenie`, `interaktiv` (4 игры), `fakty`, `testy`, `o-proekte`
-- `data/` — весь контент: `tales.ts` (народные сказки), `modern.ts`, `ai.ts`, `compare.ts`, `facts.ts`, `games.ts`, `quizzes.ts`, `research.ts`
+- `app/` — страницы: главная, `narodnaya`, `sovremennye`, `ii-skazka`, `sravnenie`, `interaktiv` (4 игры), `testy`, `o-proekte`
+- `data/` — весь контент: `tales.ts` (народные сказки), `modern.ts`, `ai.ts`, `compare.ts`, `games.ts`, `quizzes.ts`, `research.ts`
 - `components/` — оболочка с меню, игры, тесты
 - `public/img/` — иллюстрации из презентации проекта
